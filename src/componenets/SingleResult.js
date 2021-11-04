@@ -25,11 +25,14 @@ export default function SingleResult({
       </p>
 
       <div>
-        <p>
-          {temp}°C {windSpeed}m/s {arrow}
+        <p id="temp-color">
+          {temp}°C  
         </p>
-      </div>
-      <button onClick={() => removeHandler(index)}>Remove</button>
+        <p>
+        {windSpeed}m/s  {arrow}
+        </p>
+      </div >
+      <button className="rmv-btn" onClick={() => removeHandler(index)}>Remove</button>
     </div>
   );
 }

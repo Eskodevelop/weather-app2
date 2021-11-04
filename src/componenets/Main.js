@@ -10,7 +10,7 @@ export default function Main() {
   const [isInput, setIsInput] = useState(false);
   const [tempCity, setTempCity] = useState("");
   const [isDisableButton, setIsDisableButton] = useState(false);
-
+  const [msg, setMsg] = useState("");
 
   const sendRequest = () => {
     const URL = `https://api.openweathermap.org/data/2.5/find?q=${city}&units=metric&type=accurate&appid=${KEY}`;
@@ -57,8 +57,9 @@ export default function Main() {
         };
 
         setData([...data, tempData]);
+        setMsg("");
       })
-      .catch((reason) => console.log(reason));
+      .catch((reason) => setMsg("There is no city with that name! Try again!"));
   };
 
   useEffect(() => {
@@ -118,35 +119,44 @@ export default function Main() {
     <div>
       <Header />
       <div className="weather-list">
-      <div className="add-button-container">
-      <button className="add-button" onClick={clickHandler}>+</button></div>
-      {isInput ? (
-        <input
-          onChange={changeHandler}
-          onKeyPress={enterHandler}
-          type="text"
-          placeholder="Enter city..."
-        />
-      ) : (
-        <div></div>
-      )}
-      <div className="container">
-        {data.map((value, index) => {
-          return (
-            <SingleResult
-              key={index}
-              city={value.city}
-              icon={value.icon}
-              country={value.country}
-              temp={value.temp}
-              windSpeed={value.windSpeed}
-              arrow={value.arrow}
-              index={index}
-              removeHandler={removeHandler}
-            />
-          );
-        })}
-      </div>
+        <div className="add-button-container">
+          <button
+            className="add-button"
+            onClick={clickHandler}
+            disabled={isInput}
+          >
+            +
+          </button>
+        </div>
+        {isInput ? (
+          <input
+            className="input-filed"
+            onChange={changeHandler}
+            onKeyPress={enterHandler}
+            type="text"
+            placeholder="Enter city name..."
+          />
+        ) : (
+          <div></div>
+        )}
+        {msg === "" ? <div></div> : <div className="msg">{msg}</div>}
+        <div className="container">
+          {data.map((value, index) => {
+            return (
+              <SingleResult
+                key={index}
+                city={value.city}
+                icon={value.icon}
+                country={value.country}
+                temp={value.temp}
+                windSpeed={value.windSpeed}
+                arrow={value.arrow}
+                index={index}
+                removeHandler={removeHandler}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );
