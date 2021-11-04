@@ -1,4 +1,4 @@
-# Minesweeper
+# Weather application
 ## Short description
 
 Weather application is an application that provide users with the current weather conditions, including temperature in Celzius, weather conditions as well, as wind speed and direction. To connect application with "source" we use API key from https://openweathermap.org/  OpenWeatherMap.
